@@ -21,12 +21,13 @@ const cases = [
     tags: ["Hardware Diagnostics", "Documentation", "Training"],
   },
   {
-    status: "in_progress",
-    title: "Helpdesk Automation Script",
+    status: "resolved",
+    title: "IT Helpdesk Toolkit",
     context: "Personal project",
     description:
-      "A Python script that automates routine support tasks — checking machine status across a device list and generating a plain-language report technicians can act on.",
-    tags: ["Python", "Automation"],
+      "Two CLI tools that automate real recurring support problems: detecting overlapping account bookings before they cause a lockout, and checking a list of devices/equipment for reachability so issues are caught before class starts.",
+    tags: ["Python", "Google Apps Script", "Automation"],
+    href: "https://github.com/XIsleX/IT-Helpdesk-Toolkit",
   },
 ];
 
@@ -59,7 +60,7 @@ export default function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            href="https://github.com/"
+            href="https://github.com/XIsleX"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 font-mono text-sm text-text-muted border border-console-line rounded-lg px-4 py-2 hover:border-accent-info hover:text-accent-info transition-colors"
@@ -70,48 +71,58 @@ export default function Projects() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-5">
-          {cases.map((c, i) => (
-            <motion.article
-              key={c.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              whileHover={{ y: -4 }}
-              className="flex flex-col rounded-2xl border border-console-line bg-console-surface p-6 hover:border-accent-info/30 transition-colors duration-300"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <span
-                  className={`inline-flex items-center gap-1.5 font-mono text-[10px] tracking-wide uppercase ${
-                    c.status === "resolved" ? "text-accent-online" : "text-accent-pending"
-                  }`}
-                >
-                  <StatusDot
-                    color={c.status === "resolved" ? "online" : "pending"}
-                    size="sm"
-                    pulse={c.status === "in_progress"}
-                  />
-                  {c.status === "resolved" ? "resolved" : "in progress"}
-                </span>
-                <ArrowUpRight size={16} className="text-text-dim" />
-              </div>
-              <h3 className="font-display font-semibold text-lg text-text-primary leading-snug">
-                {c.title}
-              </h3>
-              <p className="font-mono text-xs text-accent-info mt-1 mb-3">{c.context}</p>
-              <p className="text-text-muted text-sm leading-relaxed flex-1">{c.description}</p>
-              <div className="flex flex-wrap gap-2 mt-5">
-                {c.tags.map((tag) => (
+          {cases.map((c, i) => {
+            const Card = c.href ? motion.a : motion.article;
+            const linkProps = c.href
+              ? { href: c.href, target: "_blank", rel: "noreferrer" }
+              : {};
+            return (
+              <Card
+                key={c.title}
+                {...linkProps}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                whileHover={{ y: -4 }}
+                className="flex flex-col rounded-2xl border border-console-line bg-console-surface p-6 hover:border-accent-info/30 transition-colors duration-300"
+              >
+                <div className="flex items-center justify-between mb-4">
                   <span
-                    key={tag}
-                    className="font-mono text-[11px] text-text-dim border border-console-line rounded-md px-2 py-0.5"
+                    className={`inline-flex items-center gap-1.5 font-mono text-[10px] tracking-wide uppercase ${
+                      c.status === "resolved" ? "text-accent-online" : "text-accent-pending"
+                    }`}
                   >
-                    {tag}
+                    <StatusDot
+                      color={c.status === "resolved" ? "online" : "pending"}
+                      size="sm"
+                      pulse={c.status === "in_progress"}
+                    />
+                    {c.status === "resolved" ? "resolved" : "in progress"}
                   </span>
-                ))}
-              </div>
-            </motion.article>
-          ))}
+                  <ArrowUpRight
+                    size={16}
+                    className={c.href ? "text-accent-info" : "text-text-dim"}
+                  />
+                </div>
+                <h3 className="font-display font-semibold text-lg text-text-primary leading-snug">
+                  {c.title}
+                </h3>
+                <p className="font-mono text-xs text-accent-info mt-1 mb-3">{c.context}</p>
+                <p className="text-text-muted text-sm leading-relaxed flex-1">{c.description}</p>
+                <div className="flex flex-wrap gap-2 mt-5">
+                  {c.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="font-mono text-[11px] text-text-dim border border-console-line rounded-md px-2 py-0.5"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>

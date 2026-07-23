@@ -19,13 +19,13 @@ const channels = [
   {
     icon: LinkedinIcon,
     label: "linkedin",
-    value: "/in/raveljonathan",
+    value: "/in/ravel-jonathan",
     href: "https://www.linkedin.com/in/ravel-jonathan-39819932b/",
   },
   {
     icon: GithubIcon,
     label: "github",
-    value: "/raveljonathan",
+    value: "/XIsleX",
     href: "https://github.com/XIsleX",
   },
 ];
